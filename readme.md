@@ -1,1 +1,1 @@
-npx tailwindcss -i ./src/app.css -o ./dist/output.css --watch
+npx tailwindcss -i ./src/app.css -o ./build/cobalt.min.css --minify --watch
