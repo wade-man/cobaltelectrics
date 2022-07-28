@@ -14,7 +14,7 @@
 </head>
 
 <body x-data="{ scrolling: false, callbackOpen: false }" @scroll.window="scrolling = (window.pageYOffset > 20) ? true : false">
-    <div :class="(scrolling) ? 'fixed md:static' : ''" class="z-30 w-full bg-sky-700 border-b border-gray-400 text-xs text-white py-2">
+    <div id="top" :class="(scrolling) ? 'fixed md:static' : ''" class="z-30 w-full bg-sky-700 border-b border-gray-400 text-xs text-white py-2">
         <div class="container mx-auto px-3 sm:px-6 max-w-screen-lg">
             <div class="flex flex-grow justify-between">
                 <div>
@@ -30,7 +30,7 @@
     <section id="fixed-menu" :class="(scrolling) ? 'top-0' : 'top-[41px]'" class="md:fixed w-full drop-shadow-lg z-20 bg-white overflow-hidden text-center md:text-left py-3">
         <div class="container mx-auto max-w-screen-lg px-6">
             <div class="md:flex md:flex-row md:items-center md:justify-between">
-                <a href="/" title="Cobalt Electrics"><img src="img/cobalt.svg" alt="Cobalt Electrics" :width="(scrolling) ? '130' : '170'" width="170" height="63" class="inline-block" /></a>
+                <a href="#top" title="Cobalt Electrics"><img src="img/cobalt.svg" alt="Cobalt Electrics" :width="(scrolling) ? '130' : '170'" width="170" height="63" class="inline-block" /></a>
 
                 <ul :class="(scrolling === true) ? 'gap-2 lg:gap-6' : 'md:gap-2 lg:gap-6 lg:text-lg'" class="hidden md:flex md:flex-row text-sm font-bold text-sky-700">
                     <li><a href="#domestic" title="Domestic Services">Domestic Services</a></li>
