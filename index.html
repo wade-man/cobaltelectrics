@@ -13,9 +13,9 @@
     <title>Cobalt Electrics</title>
 </head>
 
-<body x-data="{ scrolling: false, callbackOpen: false }" @scroll.window="scrolling = (window.pageYOffset > 50) ? true : false">
-    <div :class="(scrolling) ? 'fixed' : ''" class="z-30 w-full bg-sky-700 border-b border-gray-400 text-xs text-white py-2">
-        <div class="container mx-auto px-3">
+<body x-data="{ scrolling: false, callbackOpen: false }" @scroll.window="scrolling = (window.pageYOffset > 20) ? true : false">
+    <div :class="(scrolling) ? 'fixed md:static' : ''" class="z-30 w-full bg-sky-700 border-b border-gray-400 text-xs text-white py-2">
+        <div class="container mx-auto px-3 sm:px-6 max-w-screen-lg">
             <div class="flex flex-grow justify-between">
                 <div>
                     <a href="mailto:help@cobaltelectrics.co.uk" title="help@cobaltelectrics.co.uk" class="flex flex-row items-center"><span class="material-icons-outlined mr-1">mail_outline</span> help@cobaltelectrics.co.uk</a>
@@ -27,29 +27,41 @@
         </div>
     </div>
 
-    <section class="bg-white overflow-hidden text-center p-3">
-        <div class="container mx-auto px-6">
-            <img src="img/cobalt.svg" alt="Cobalt Electrics" width="170" height="63" class="inline-block" />
+    <section id="fixed-menu" :class="(scrolling) ? 'top-0' : 'top-[41px]'" class="md:fixed w-full drop-shadow-lg z-20 bg-white overflow-hidden text-center md:text-left py-3">
+        <div class="container mx-auto max-w-screen-lg px-6">
+            <div class="md:flex md:flex-row md:items-center md:justify-between">
+                <a href="/" title="Cobalt Electrics"><img src="img/cobalt.svg" alt="Cobalt Electrics" :width="(scrolling) ? '130' : '170'" width="170" height="63" class="inline-block" /></a>
+
+                <ul :class="(scrolling === true) ? 'gap-2 lg:gap-6' : 'md:gap-2 lg:gap-6 lg:text-lg'" class="hidden md:flex md:flex-row text-sm font-bold text-sky-700">
+                    <li><a href="#domestic" title="Domestic Services">Domestic Services</a></li>
+                    <li><a href="#commercial" title="Commercial Services">Commercial Services</a></li>
+                    <li><a href="#reviews" title="Our Reviews">Our Reviews</a></li>
+                    <li><a href="#gallery" title="Gallery">Gallery</a></li>
+                    <li><a href="#contact" title="Contact Us">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
     </section>
 
     <header class="pb-6 bg-cover text-white" style="background-image:url('img/header.jpg');">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col justify-center py-12 leading-tight text-center font-bold">
-                <div class="text-xl mb-3">Your local electricians, operating in and around the West Midlands.</div>
+            <div class="max-w-xs mx-auto">
+                <div class="flex flex-col justify-center py-12 md:py-28 leading-tight text-center font-bold">
+                    <div class="text-xl mb-3">Your local electricians, operating in and around the West Midlands.</div>
 
-                <button @click="callbackOpen = true" class="btn bg-green-500 inline-block">Request a Callback</button>
+                    <button @click="callbackOpen = true" class="btn bg-green-500 inline-block">Request a Callback</button>
+                </div>
             </div>
         </div>
     </header>
 
-    <section class="bg-gray-100 py-6">
-        <div class="container mx-auto px-6">
-            <div class="text-2xl font-extrabold text-center">What are you looking for?</div>
+    <section class="bg-gray-100 py-6 lg:py-12">
+        <div class="container mx-auto max-w-screen-lg px-6">
+            <div class="text-2xl lg:text-4xl font-extrabold text-center">What are you looking for?</div>
 
-            <div class="text-sm text-center my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et ante dolor. Morbi congue, leo eget ullamcorper congue</div>
+            <div class="text-sm text-center my-3 lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br class="hidden md:block" />Mauris et ante dolor. Morbi congue, leo eget ullamcorper congue</div>
 
-            <div class="flex flex-row justify-between gap-6 max-w-xs">
+            <div class="flex flex-row justify-between gap-6 max-w-xs mx-auto">
                 <a href="#domestic" class="service-marker">
                     <span class="material-icons-outlined text-5xl">
                         home
@@ -67,91 +79,191 @@
         </div>
     </section>
 
-    <section id="domestic" class="bg-sky-700 text-white py-6">
-        <div class="container mx-auto px-6">
-            <div class="text-2xl font-extrabold text-center">Our Domestic Services</div>
-
-            <div class="text-sm text-center my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et ante dolor. Morbi congue, leo eget ullamcorper congue</div>
-
-            <div class="grid grid-cols-2 gap-3">
-                <div class="service-box">Socket Installation</div>
-                <div class="service-box">Light Fittings</div>
-                <div class="service-box">Light Fittings</div>
-                <div class="service-box">CCTV</div>
-                <div class="service-box">Outdoor Power</div>
-                <div class="service-box">Outdoor Lighting</div>
-                <div class="service-box">Something Else</div>
-                <div class="service-box">Another thing</div>
-                <div class="service-box">Spam</div>
-                <div class="service-box">Letterboxes</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-white py-6 relative overflow-hidden">
-        <div class="container mx-auto px-6">
-            <div class="text-2xl font-extrabold text-center">Customer Reviews</div>
-
-            <div class="text-center my-3"><img src="img/cobalt.svg" alt="Cobalt Electrics" width="170" height="63" class="inline-block" /></div>
-        
-            <div class="splide relative" role="group" aria-label="Cobalt Electrics - Testimonials">
-                <div class="splide__arrows">
-                    <button class="splide__arrow splide__arrow--prev">
-                        <span class="material-icons-outlined overflow-hidden absolute top-1/2 -translate-y-1/2 -left-9 text-6xl text-sky-700">
-                            keyboard_arrow_left
-                        </span>
-                    </button>
-                    <button class="splide__arrow splide__arrow--next">
-                        <span class="material-icons-outlined overflow-hidden absolute top-1/2 -translate-y-1/2 -right-9 text-6xl text-sky-700">
-                            keyboard_arrow_right
-                        </span>
-                    </button>
+    <section class="bg-sky-700 text-white py-6 md:py-12">
+        <a id="domestic" class="anchor"></a>
+        <div class="container mx-auto max-w-screen-lg mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-center md:gap-6">
+                <div class="md:w-1/2 md:flex md:flex-col">
+                    <div class="text-2xl md:text-5xl font-extrabold text-center">Our Domestic Services</div>
+                    <div class="text-sm text-center my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et ante dolor. Morbi congue, leo eget ullamcorper congue</div>
                 </div>
-
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <li class="splide__slide">
-                            <div class="text-sm">Adam arrived 3 months late, left a hole in my garage and a wonky shelf. Power and lights work though.</div>
-                            <div class="font-extrabold">Daniel W - Coventry</div>
-                        </li>
-                        <li class="splide__slide">
-                            <div class="text-sm">Cobalt did all my extension for free. Well recommended and top quality job.</div>
-                            <div class="font-extrabold">Family Friend - Coventry</div>
-                        </li>
-                    </ul>
+                <div class="grid grid-cols-2 gap-3 md:w-1/2">
+                    <div class="service-box">Socket Installation</div>
+                    <div class="service-box">Light Fittings</div>
+                    <div class="service-box">Light Fittings</div>
+                    <div class="service-box">CCTV</div>
+                    <div class="service-box">Outdoor Power</div>
+                    <div class="service-box">Outdoor Lighting</div>
+                    <div class="service-box">Something Else</div>
+                    <div class="service-box">Another thing</div>
+                    <div class="service-box">Spam</div>
+                    <div class="service-box">Letterboxes</div>
                 </div>
             </div>
         </div>
     </section>
     
-    <section id="commercial" class="bg-sky-600 text-white py-6">
-        <div class="container mx-auto px-6">
-            <div class="text-2xl font-extrabold text-center">Our Commercial Services</div>
 
-            <div class="text-sm text-center my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et ante dolor. Morbi congue, leo eget ullamcorper congue</div>
-
-            <div class="grid grid-cols-2 gap-3">
-                <div class="service-box">Emergency Repairs</div>
-                <div class="service-box">Light Fittings</div>
-                <div class="service-box">CCTV</div>
-                <div class="service-box">Outdoor Power</div>
-                <div class="service-box">Security Lights</div>
-                <div class="service-box">Another thing</div>
-                <div class="service-box">Spam</div>
-                <div class="service-box">Letterboxes</div>
+    <section class="bg-sky-900 text-white py-6 md:py-12">
+        <a id="commercial" class="anchor"></a>
+        <div class="container mx-auto max-w-screen-lg px-6">
+            <div class="flex flex-col md:flex-row md:items-center md:gap-6">
+                <div class="md:w-1/2 md:flex md:flex-col md:order-2">
+                    <div class="text-2xl md:text-5xl font-extrabold text-center">Our Commercial Services</div>
+                    <div class="text-sm text-center my-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et ante dolor. Morbi congue, leo eget ullamcorper congue</div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 md:order-1 md:w-1/2">
+                    <div class="service-box">Emergency Repairs</div>
+                    <div class="service-box">Light Fittings</div>
+                    <div class="service-box">CCTV</div>
+                    <div class="service-box">Outdoor Power</div>
+                    <div class="service-box">Security Lights</div>
+                    <div class="service-box">Another thing</div>
+                    <div class="service-box">Spam</div>
+                    <div class="service-box">Letterboxes</div>
+                    </div>
             </div>
         </div>
     </section>
 
+    <section class="bg-white py-6 md:py-24 relative overflow-hidden">
+        <a id="reviews" class="anchor"></a>
+        <div class="container mx-auto max-w-screen-lg px-6">
+            <div class="flex flex-col md:flex-row md:items-center">
+                <div class="md:w-1/2 md:flex md:flex-col">
+                    <div class="text-2xl md:text-5xl font-extrabold text-center">Customer <br class="hidden md:block" />Reviews</div>
+                    <div class="text-center my-3"><img src="img/cobalt.svg" alt="Cobalt Electrics" width="170" height="63" class="inline-block" /></div>
+                </div>
+                <div class="splide relative md:w-1/2" role="group" aria-label="Cobalt Electrics - Testimonials">
+                    <div class="splide__arrows">
+                        <button class="splide__arrow splide__arrow--prev">
+                            <span class="material-icons-outlined overflow-hidden absolute top-1/2 -translate-y-1/2 -left-9 text-6xl text-sky-700">
+                                keyboard_arrow_left
+                            </span>
+                        </button>
+                        <button class="splide__arrow splide__arrow--next">
+                            <span class="material-icons-outlined overflow-hidden absolute top-1/2 -translate-y-1/2 -right-9 text-6xl text-sky-700">
+                                keyboard_arrow_right
+                            </span>
+                        </button>
+                    </div>
+    
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            <li class="splide__slide">
+                                <div class="text-sm">Adam arrived 3 months late, left a hole in my garage and a wonky shelf. Power and lights work though.</div>
+                                <div class="font-extrabold">Daniel W - Coventry</div>
+                            </li>
+                            <li class="splide__slide">
+                                <div class="text-sm">Cobalt did all my extension for free. Well recommended and top quality job.</div>
+                                <div class="font-extrabold">Family Friend - Coventry</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </section>
+
+    <section class="py-6 bg-gray-700 md:py-12 text-white overflow-hidden">
+        <a id="gallery" class="anchor"></a>
+        <div class="container max-w-screen-lg mx-auto px-6">
+            <div class="text-2xl font-extrabold text-center mb-6 md:text-5xl">Gallery of Work</div>
+
+            <div class="text-md text-center mb-3 text-white">A small showcase of what we do here at Cobalt Electrics. <br class="hidden md:block" />Please give us a call on <a href="tel:02476 243 254" class="bold underline" title="02476 243 254">02476 243 254</a> if you have any questions.</div>
+
+            <div class="splide splide-gallery relative" role="group" aria-label="Cobalt Electrics - Testimonials">
+                <div class="splide__arrows">
+                    <button class="splide__arrow splide__arrow--prev">
+                        <span class="material-icons-outlined overflow-hidden absolute top-1/2 -translate-y-1/2 -left-9 text-6xl text-white">
+                            keyboard_arrow_left
+                        </span>
+                    </button>
+                    <button class="splide__arrow splide__arrow--next">
+                        <span class="material-icons-outlined overflow-hidden absolute top-1/2 -translate-y-1/2 -right-9 text-6xl text-white">
+                            keyboard_arrow_right
+                        </span>
+                    </button>
+                </div>
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide gallery-item"><img src="/img/gallery-1.jpg" alt="" class="border-4 border-white" /></li>
+                        <li class="splide__slide gallery-item"><img src="/img/gallery-6.jpg" alt="" class="border-4 border-white" /></li>
+                        <li class="splide__slide gallery-item"><img src="/img/gallery-7.jpg" alt="" class="border-4 border-white" /></li>
+                        <li class="splide__slide gallery-item"><img src="/img/gallery-5.jpg" alt="" class="border-4 border-white" /></li>
+                        <li class="splide__slide gallery-item"><img src="/img/gallery-3.jpg" alt="" class="border-4 border-white" /></li>
+                        <li class="splide__slide gallery-item"><img src="/img/gallery-2.jpg" alt="" class="border-4 border-white" /></li>
+                        <li class="splide__slide gallery-item"><img src="/img/gallery-4.jpg" alt="" class="border-4 border-white" /></li>
+                        <li class="splide__slide gallery-item"><img src="/img/gallery-8.jpg" alt="" class="border-4 border-white" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-sky-900 py-6 text-white text-sm font-bold">
+        <a id="contact" class="anchor"></a>
+        <div class="container mx-auto max-w-screen-lg px-6">
+            <div class="text-2xl font-extrabold text-center md:hidden">Get in Touch</div>
+
+            <div class="flex flex-row">
+                <div class="w-full md:w-1/2">
+                    <form method="post" class="flex flex-col gap-3 mt-6">
+                        <div class="flex flex-col">
+                            <input type="text" required name="contact_name" placeholder="Your name" class="rounded-lg" />
+                        </div>
+                        <div class="flex flex-col">
+                            <input type="email" required name="contact_email" placeholder="Email address" class="rounded-lg" />
+                        </div>
+                        <div class="flex flex-col">
+                            <input type="tel" required name="contact_number" placeholder="Contact Telephone No" class="rounded-lg" />
+                        </div>
+                        <div class="flex flex-col">
+                            <textarea required name="contact_number" placeholder="Enter your message" class="rounded-lg h-[90px]"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn bg-green-500 w-full">Send message</button>
+                        </div>
+                    </form>
+                    <div class="text-center text-xs my-2 md:hidden">
+                        - or -
+                    </div>
+                    <button @click="callbackOpen = true" class="btn w-full bg-cyan-500 md:hidden">Request a Callback</button>
+                </div>
+
+                <div class="hidden md:flex md:items-center md:justify-center md:flex-col md:gap-3 md:w-1/2">
+                    <div class="text-5xl font-extrabold text-center">Get in Touch</div>
+                    <p class="text-lg text-center font-normal">Fill out our form,<br />or contact us below</p>
+                    <p>Call us: <a href="tel:02476 243 254" title="02476 243 254">02476 243 254</a></p>
+                    <p>Email Us: <a href="mailto:help@cobaltelectrics.co.uk" title="help@cobaltelectrics.co.uk">help@cobaltelectrics.co.uk</a></p>
+                    <div class="text-center text-xs">
+                        - or -
+                    </div>
+                    <button @click="callbackOpen = true" class="btn w-1/2 bg-cyan-500">Request a Callback</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-700 py-6 text-white text-sm font-bold">
+        <div class="container mx-auto max-w-screen-lg px-6">
+            <div class="md:flex md:flex-row md:items-center md:justify-between">
+                <a href="mailto:help@cobaltelectrics.co.uk" title="help@cobaltelectrics.co.uk">Email: help@cobaltelectrics.co.uk</a><br />
+                <a href="tel:02476 243 254" title="02476 243 254">Call us: 02476 243 254</a><br />
+                <img src="img/cobalt.svg" alt="Cobalt Electrics" width="100" height="37" class="self-center inline-block mt-3" />
+            </div>
+        </div>
+    </footer>
+
     <div @click="callbackOpen = false" x-cloak x-show="callbackOpen" class="fixed top-0 left-0 w-full h-full z-30 bg-sky-700/25"></div>
 
-    <div x-cloak x-show="callbackOpen" class="z-40 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl w-[90%] text-sm bg-white p-3 text-gray-700">
+    <div x-cloak x-show="callbackOpen" class="z-40 max-w-sm fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl w-[90%] text-sm bg-white p-3 text-gray-700">
         <div class="text-center mb-3 flex flex-row justify-center items-center leading-tight">
             <span class="material-icons-outlined text-sky-700">phone_callback</span>
             <div class="text-lg font-bold uppercase inline-block">Request a callback</div>
         </div>
 
-        <div class="text-xs mb-3 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dignissim metus mollis metus mollis, or call us on <a href="tel:02476 243 254" title="02476 243 254" class="font-bold underline">02476 243 254</a></div>
+        <div class="text-xs mb-3 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dignissim metus mollis metus mollis,<br />or call us on <a href="tel:02476 243 254" title="02476 243 254" class="font-bold underline">02476 243 254</a></div>
 
         <form method="post" class="flex flex-col gap-3">
             <div class="flex flex-col">
@@ -168,42 +280,6 @@
         <div class="text-center mt-3"><img src="img/cobalt.svg" alt="Cobalt Electrics" width="100" height="37" class="self-center inline-block" /></div>
     </div>
 
-    <section class="bg-sky-900 py-6 text-white text-sm font-bold">
-        <div class="container mx-auto px-6">
-            <div class="text-2xl font-extrabold text-center">Get in Touch</div>
-
-            <form method="post" class="flex flex-col gap-3 mt-6">
-                <div class="flex flex-col">
-                    <input type="text" required name="contact_name" placeholder="Your name" class="rounded-lg" />
-                </div>
-                <div class="flex flex-col">
-                    <input type="email" required name="contact_email" placeholder="Email address" class="rounded-lg" />
-                </div>
-                <div class="flex flex-col">
-                    <input type="tel" required name="contact_number" placeholder="Contact Telephone No" class="rounded-lg" />
-                </div>
-                <div class="flex flex-col">
-                    <textarea required name="contact_number" placeholder="Enter your message" class="rounded-lg h-[90px]"></textarea>
-                </div>
-                <div>
-                    <button type="submit" class="btn bg-green-500 w-full">Send message</button>
-                </div>
-            </form>
-
-            <div class="text-center my-2 text-xs">
-                - or -
-            </div>
-            <button @click="callbackOpen = true" class="btn w-full bg-sky-300">Request a Callback</button>
-        </div>
-    </section>
-
-    <footer class="bg-gray-700 py-6 text-white text-sm font-bold">
-        <div class="container mx-auto px-6">
-            <a href="mailto:help@cobaltelectrics.co.uk" title="help@cobaltelectrics.co.uk">Email: help@cobaltelectrics.co.uk</a><br />
-            <a href="tel:02476 243 254" title="02476 243 254">Call us: 02476 243 254</a><br />
-            <img src="img/cobalt.svg" alt="Cobalt Electrics" width="100" height="37" class="self-center inline-block mt-3" />
-        </div>
-    </footer>
 
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js" integrity="sha256-qtSu/7zFd1zx2GaGN7yAuWyIXuxC7IVrfSpncRDxUII=" crossorigin="anonymous"></script>
@@ -212,6 +288,26 @@
         document.addEventListener( 'DOMContentLoaded', function() {
           var splide = new Splide( '.splide' );
           splide.mount();
+        });
+
+        document.addEventListener( 'DOMContentLoaded', function() {
+          var splide = new Splide( '.splide-gallery', {
+                perPage: 4,
+                breakpoints: {
+                    1024: {
+                        perPage: 3,
+                    },
+                    767: {
+                        perPage: 2,
+                    },
+                    640: {
+                        perPage: 1,
+                    },
+                },
+                focus: "center",
+                gap: '2em',
+            });
+            splide.mount();
         });
         
         // fetch('/callback', {

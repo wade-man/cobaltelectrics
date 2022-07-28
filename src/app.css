@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     @apply m-0 p-0;
 }
@@ -27,11 +31,25 @@ input[type=text], input[type=email], input[type=tel], textarea {
 }
 
 .splide__slide {
-    @apply text-center px-3;
+    @apply text-center px-3 flex justify-center items-center flex-col;
 }
 
 .splide__arrow svg {
     @apply text-sky-700;
+}
+
+#fixed-menu * {
+    @apply transition-all;
+}
+
+.anchor {
+    @apply relative -top-[73px] md:-top-[114px] invisible block;
+}
+
+@screen md {
+    .gallery-item {
+        width:50%;
+    }
 }
 
 [x-cloak] { display: none !important; }
