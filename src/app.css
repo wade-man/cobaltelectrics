@@ -43,7 +43,7 @@ input[type=text], input[type=email], input[type=tel], textarea {
 }
 
 .anchor {
-    @apply relative -top-[73px] md:-top-[114px] invisible block;
+    @apply relative -top-[73px] md:-top-[114px] h-2 invisible block;
 }
 
 @screen md {
