@@ -26,16 +26,16 @@ input[type=text], input[type=email], input[type=tel], textarea {
     @apply text-white p-2 rounded-lg uppercase font-bold text-xs;
 }
 
-.service-box {
-    @apply bg-white p-3 rounded-full drop-shadow-lg text-xs font-bold uppercase flex flex-col items-center justify-center text-center text-sky-700;
+.swiper-wrapper {
+    @apply flex flex-row items-center;
 }
 
-.splide__slide {
-    @apply text-center px-3 flex justify-center items-center flex-col;
+.tm-slide {
+    @apply text-center px-12 lg:px-16;
 }
 
-.splide__arrow svg {
-    @apply text-sky-700;
+.swiper-testimonial .swiper-pagination {
+    bottom:-10px!important;
 }
 
 #fixed-menu * {
@@ -44,12 +44,6 @@ input[type=text], input[type=email], input[type=tel], textarea {
 
 .anchor {
     @apply relative -top-[73px] md:-top-[114px] h-2 invisible block;
-}
-
-@screen md {
-    .gallery-item {
-        width:50%;
-    }
 }
 
 [x-cloak] { display: none !important; }
