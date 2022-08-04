@@ -18,6 +18,10 @@ input[type=text], input[type=email], input[type=tel], textarea {
     @apply border-sky-700 border-b p-2 text-black outline-none appearance-none resize-none;
 }
 
+.service-box {
+    @apply bg-white p-3 rounded-full drop-shadow-lg text-xs font-bold uppercase flex flex-col items-center justify-center text-center text-sky-700;
+}
+
 .service-marker {
     @apply w-32 h-32 flex flex-col items-center justify-center text-sky-700 border border-gray-300 rounded-xl uppercase text-xs font-extrabold;
 }
