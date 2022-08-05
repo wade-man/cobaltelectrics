@@ -191,27 +191,37 @@
 
             <div class="flex flex-row">
                 <div class="w-full md:w-1/2">
-                    <form method="post" class="flex flex-col gap-3 mt-6">
-                        <div class="flex flex-col">
-                            <input type="text" required name="contact_name" placeholder="Your name" class="rounded-lg" />
+                    <div id="contact-form-success" class="hidden mt-6 bg-green-500 text-white text-center p-3 rounded-lg">Thanks for contacting Cobalt Electrics.<br />We will be in touch with you shortly.</div>
+                    <div id="contact-form-outer">
+                        <form id="contact-form" method="post" class="flex flex-col gap-3 mt-6 lg:mt-0">
+                            <div class="hidden errors bg-red-500 text-xs p-1 rounded-lg text-center font-bold text-white">
+                                Please enter the required fields
+
+                                <div class="hidden" id="contact_info">Please enter a valid email or phone number</div>
+                            </div>
+                            <div class="flex flex-col">
+                                <input type="text" name="contact_name" placeholder="Your Name *" class="rounded-lg" />
+                            </div>
+                            <div class="flex flex-col">
+                                <input type="email" name="contact_email" placeholder="Email Address" class="rounded-lg" />
+                            </div>
+                            <div class="flex flex-col">
+                                <input type="tel" name="contact_number" placeholder="Contact Telephone No" class="rounded-lg" />
+                            </div>
+                            <div class="flex flex-col">
+                                <textarea name="contact_message" placeholder="Enter your message *" class="rounded-lg h-[90px]"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn bg-green-500 w-full">Send message</button>
+                            </div>
+                            <input type="hidden" name="contact_email_confirm" placeholder="Email address" class="invisible" />
+                            <input type="hidden" name="action" value="contact" />
+                        </form>
+                        <div class="text-center text-xs my-2 md:hidden">
+                            - or -
                         </div>
-                        <div class="flex flex-col">
-                            <input type="email" required name="contact_email" placeholder="Email address" class="rounded-lg" />
-                        </div>
-                        <div class="flex flex-col">
-                            <input type="tel" name="contact_number" placeholder="Contact Telephone No" class="rounded-lg" />
-                        </div>
-                        <div class="flex flex-col">
-                            <textarea required name="contact_number" placeholder="Enter your message" class="rounded-lg h-[90px]"></textarea>
-                        </div>
-                        <div>
-                            <button type="submit" class="btn bg-green-500 w-full">Send message</button>
-                        </div>
-                    </form>
-                    <div class="text-center text-xs my-2 md:hidden">
-                        - or -
+                        <button @click="callbackOpen = true" class="btn w-full bg-cyan-500 md:hidden">Request a Callback</button>
                     </div>
-                    <button @click="callbackOpen = true" class="btn w-full bg-cyan-500 md:hidden">Request a Callback</button>
                 </div>
 
                 <div class="hidden md:flex md:items-center md:justify-center md:flex-col md:gap-3 md:w-1/2">
@@ -248,27 +258,31 @@
 
         <div class="text-xs mb-3 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dignissim metus mollis metus mollis,<br />or call us on <a href="tel:02476 243 254" title="02476 243 254" class="font-bold underline">02476 243 254</a></div>
 
-        <form method="post" class="flex flex-col gap-3">
+        <div id="callback-success" class="hidden bg-green-500 text-xs font-bold rounded-lg p-1 text-center text-white">Thanks for your request.<br />We will be in touch as soon as possible.</div>
+        
+        <form id="callback-form" method="post" class="flex flex-col gap-3">
+            <div id="callback-error" class="hidden bg-red-500 text-xs font-bold rounded-lg p-1 text-center text-white">Please enter your name and phone number</div>
             <div class="flex flex-col">
-                <input type="text" required name="callback_name" placeholder="Enter your name" />
+                <input type="text" name="callback_name" placeholder="Enter your name" />
             </div>
             <div class="flex flex-col">
-                <input type="text" required name="callback_name" placeholder="Enter your contact number" />
+                <input type="tel" name="callback_number" placeholder="Enter your contact number" />
             </div>
             <div>
                 <button type="submit" class="btn bg-green-500 w-full">Request a Callback</button>
             </div>
+
+            <input type="hidden" name="action" value="callback" />
         </form>
 
         <div class="text-center mt-3"><img src="img/cobalt.svg" alt="Cobalt Electrics" width="100" height="37" class="self-center inline-block" /></div>
     </div>
 
-
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
     <script>
-
         const swiperTest = new Swiper('.swiper-testimonial', {
             direction: 'horizontal',
             spaceBetween: 20,
@@ -280,7 +294,6 @@
                 prevEl: '.swiper-button-prev',
             }
         });
-
 
         const swiper = new Swiper('.swiper-gallery', {
             direction: 'horizontal',
@@ -313,15 +326,54 @@
             scrollbar: {
                 el: '.swiper-scrollbar',
             },
+        });
+
+        $(function() {        
+            $("#contact-form").on('submit', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                $("button", this).html('Sending...').prop('disabled', true);
+                $('#contact_info, .errors').addClass('hidden');
+
+                $.post("form.php", $(this).serialize(), function(data) {
+                    if (data.status == 200) {
+                        $("#contact-form-outer").remove();
+                        $("#contact-form-success").removeClass('hidden');
+                    } else {
+                        $('.errors').removeClass('hidden');
+
+                        if (data.errors.contact_info) {
+                            $('#contact_info').removeClass('hidden');
+                        }
+                        
+                        $.each(data.errors, function (name, value) {
+                            $("input[name=" + name + "], textarea[name=" + name + "]").addClass('input-error');
+                        });
+                    }
+
+                    $("#contact-form button").html('Send Message').prop('disabled', false);
+                }, "json");
             });
-        
-        // fetch('/callback', {
-        //     method: 'post',
-        //     body: JSON.stringify({
-        //         name: document.getElementById('callback_name').value,
-        //         number: document.getElementById('callback_number').value
-        //     })
-        // });
+
+            $("#callback-form").on('submit', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                $("button", this).html('Sending...').prop('disabled', true);
+
+                $.post("form.php", $(this).serialize(), function(data) {
+                    if (data.status == 200) {
+                        $("#callback-form").remove();
+                        $("#callback-success").removeClass('hidden');
+                    } else {
+                        $('#callback-error').removeClass('hidden');
+                    }
+
+                    $("#callback-form button").html('Request a Callback').prop('disabled', false);
+                }, "json");
+            });
+        });
     </script>    
 </body>
 </html>
